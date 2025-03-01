@@ -34,7 +34,7 @@ class MyAccountManager(BaseUserManager):
 class Account(AbstractBaseUser, PermissionsMixin):
     username                = models.CharField(max_length=50, unique=True)
     email                   = models.EmailField(max_length=100, unique=True)
-    rol                     = models.ForeignKey("Rol", on_delete=models.SET_NULL, null=True, blank=True)
+    cargo                     = models.ForeignKey("Cargo", on_delete=models.SET_NULL, null=True, blank=True)
 
     # required
     date_joined             = models.DateTimeField(auto_now_add=True)
@@ -65,8 +65,28 @@ class PerfilUsuario(models.Model):
     def full_name(self):
         return f'{self.nombre} {self.apellido}'
     
-class Rol(models.Model):
+class Cargo(models.Model):
     nombre  = models.CharField(max_length=50, unique=True) 
 
     def __str__(self):
-        return self.nombre   
+        return self.nombre
+
+class Area(models.Model):
+    nombre      = models.CharField(max_length=100, unique=True, null=False, blank=False)
+    descripcion = models.CharField(max_length=100)
+    Empresa     = models.ForeignKey("Empresa", on_delete=models.SET_NULL, null=True, blank=True)
+
+    def _str_(self):
+        return self.nombre
+
+class Empresa(models.Model):
+    nombre                  = models.CharField(max_length=100, unique=True)
+    razon_social            = models.CharField(max_length=100)
+    nit                     = models.IntegerField(unique=True)
+    telefono                = models.IntegerField(unique=True)
+    correo                  = models.EmailField(max_length=100, unique=True)
+    fecha_inicio_actividad  = models.DateField()
+    usuario                 = models.ForeignKey(PerfilUsuario, on_delete=models.CASCADE)
+
+    def _str_(self):
+        return self.nombre       
