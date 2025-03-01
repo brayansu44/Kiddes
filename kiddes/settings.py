@@ -37,12 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Bodega',
+    'bodega',
     'Cuentas',
-    'Usuarios',
+    'usuarios',
     'Compras',
-    'Nomina',
-    'Telas',
+    'nomina',
+    'telas',
     'Producto',
     'Ventas',
     'Movimientos'
@@ -78,11 +78,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'kiddes.wsgi.application'
 
+AUTH_USER_MODEL = 'usuarios.Account'
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'KIDDES_DB',
@@ -90,6 +92,13 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
+    }
+}'''
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
