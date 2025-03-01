@@ -31,14 +31,14 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
     
-class Account(AbstractBaseUser, PermissionsMixin):
+class Usuario(AbstractBaseUser, PermissionsMixin):
     username                = models.CharField(max_length=50, unique=True)
     email                   = models.EmailField(max_length=100, unique=True)
     cargo                     = models.ForeignKey("Cargo", on_delete=models.SET_NULL, null=True, blank=True)
 
     # required
     date_joined             = models.DateTimeField(auto_now_add=True)
-    last_login              = models.DateTimeField(auto_now=True)
+    last_login              = models.DateTimeField(auto_now_add=True)
     is_staff                = models.BooleanField(default=False)
     is_active               = models.BooleanField(default=False)
     is_superuser            = models.BooleanField(default=False)
@@ -53,7 +53,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 class PerfilUsuario(models.Model):
-    usuario     = models.OneToOneField(Account, on_delete=models.CASCADE)
+    usuario     = models.OneToOneField(Usuario, on_delete=models.CASCADE)
     nombre      = models.CharField(max_length=50)
     apellido    = models.CharField(max_length=50)
     documento   = models.IntegerField(unique=True)
@@ -66,7 +66,8 @@ class PerfilUsuario(models.Model):
         return f'{self.nombre} {self.apellido}'
     
 class Cargo(models.Model):
-    nombre  = models.CharField(max_length=50, unique=True) 
+    nombre  = models.CharField(max_length=50, unique=True)
+    area    = models.ForeignKey("Area", on_delete=models.SET_NULL, null=True, blank=True)  
 
     def __str__(self):
         return self.nombre
@@ -74,7 +75,7 @@ class Cargo(models.Model):
 class Area(models.Model):
     nombre      = models.CharField(max_length=100, unique=True, null=False, blank=False)
     descripcion = models.CharField(max_length=100)
-    Empresa     = models.ForeignKey("Empresa", on_delete=models.SET_NULL, null=True, blank=True)
+    empresa     = models.ForeignKey("Empresa", on_delete=models.SET_NULL, null=True, blank=True)
 
     def _str_(self):
         return self.nombre

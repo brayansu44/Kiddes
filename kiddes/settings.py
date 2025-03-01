@@ -78,7 +78,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'kiddes.wsgi.application'
 
-AUTH_USER_MODEL = 'usuarios.Account'
+AUTH_USER_MODEL = 'usuarios.Usuario'
 
 
 # Database

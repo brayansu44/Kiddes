@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.db import models
-from usuarios.models import PerfilUsuario, Empresa, Area, Account
+from usuarios.models import PerfilUsuario, Empresa, Area, Usuario
 
 # Modelos locales
 class Devengado(models.Model):
@@ -59,7 +59,7 @@ class Comprobante(models.Model):
     UsuarioiID      = models.ForeignKey(PerfilUsuario, on_delete=models.CASCADE)
     EmpresaID       = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     AreaID          = models.ForeignKey(Area, on_delete=models.CASCADE)
-    UserResponsable = models.ForeignKey(Account, on_delete=models.CASCADE)
+    UserResponsable = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     AprobadorID     = models.ForeignKey(Aprobador, on_delete=models.CASCADE)
 
 # Modelo Nomina
