@@ -33,10 +33,16 @@
 	<!--wrapper-->
 	<div class="wrapper">
 
-		{% include 'includes/dashboard_sidebar.html' %}
+		<!-- alerts -->
+		{% include 'includes/alerts.html' %}
 
+		<!-- sidebar -->
+		{% include 'includes/dashboard_sidebar.html' %}
+		
+		<!-- navbar -->
 		{% include 'includes/navbar.html' %}
 
+		<!-- -->
 		{% include 'includes/switcher.html' %}
 
 		{% block content %}

@@ -53,41 +53,20 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 class PerfilUsuario(models.Model):
-    usuario     = models.OneToOneField(Usuario, on_delete=models.CASCADE)
-    nombre      = models.CharField(max_length=50)
-    apellido    = models.CharField(max_length=50)
-    documento   = models.IntegerField(unique=True)
-    telefono    = models.IntegerField(unique=True)
+    usuario                             = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    nombre                              = models.CharField(max_length=50)
+    apellido                            = models.CharField(max_length=50)
+    documento                           = models.IntegerField(unique=True)
+    telefono                            = models.IntegerField(unique=True)
 
     def __str__(self):
-        return self.nombre
+        return f"{self.nombre} {self.apellido}"
     
     def full_name(self):
         return f'{self.nombre} {self.apellido}'
     
 class Cargo(models.Model):
     nombre  = models.CharField(max_length=50, unique=True)
-    area    = models.ForeignKey("Area", on_delete=models.SET_NULL, null=True, blank=True)  
 
     def __str__(self):
-        return self.nombre
-
-class Empresa(models.Model):
-    nombre                  = models.CharField(max_length=100, unique=True)
-    razon_social            = models.CharField(max_length=100)
-    nit                     = models.IntegerField(unique=True)
-    telefono                = models.IntegerField(unique=True)
-    correo                  = models.EmailField(max_length=100, unique=True)
-    fecha_inicio_actividad  = models.DateField()
-    usuario                 = models.ForeignKey(PerfilUsuario, on_delete=models.CASCADE)
-
-    def _str_(self):
-        return self.nombre       
-
-class Area(models.Model):
-    nombre      = models.CharField(max_length=100, unique=True, null=False, blank=False)
-    descripcion = models.CharField(max_length=100)
-    empresa     = models.ForeignKey(Empresa, on_delete=models.SET_NULL, null=True, blank=True)
-
-    def _str_(self):
         return self.nombre

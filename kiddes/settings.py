@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'telas',
     'Producto',
     'Ventas',
-    'Movimientos'
+    'Movimientos',
+    'gastos',
+    'empresas'
 ]
 
 MIDDLEWARE = [
@@ -147,3 +149,20 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Asegura que Django use cookies de sesión y no base de datos para sesiones
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
+# La cookie de sesión expira en 2 semanas si "Remember Me" está marcado
+SESSION_COOKIE_AGE = 1209600  # 2 semanas en segundos
+
+# Si quieres que la sesión no se cierre automáticamente al cerrar el navegador
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+# SMTP configuration
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'brayansayrez400@gmail.com'
+EMAIL_HOST_PASSWORD = 'xhxptpsibyzmxjsr'
+EMAIL_USE_TLS = True

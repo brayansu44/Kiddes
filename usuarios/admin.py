@@ -1,49 +1,34 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Usuario, PerfilUsuario, Cargo, Area, Empresa
-
-# Register your models here.
+from .models import Usuario, PerfilUsuario, Cargo
 
 class UsuarioAdmin(UserAdmin):
-    list_display = ('email', 'username', 'last_login', 'date_joined', 'is_active')
-    list_display_links = ('email', 'username')
-    readonly_fields = ('last_login', 'date_joined')
-    ordering = ('-date_joined',)
-
-    filter_horizontal = ()
-    list_filter = ()
-    fieldsets = ()
+    list_display = ('username', 'email', 'is_staff', 'is_active', 'last_login')
+    search_fields = ('username', 'email')
+    list_filter = ('is_staff', 'is_active')
+    ordering = ('username',)
+    readonly_fields = ('date_joined', 'last_login')
+    fieldsets = (
+        ("Información del Usuario", {'fields': ('username', 'email', 'password')}),
+        ("Permisos", {'fields': ('is_staff', 'is_active', 'is_superuser', 'groups', 'user_permissions')}),
+        ("Fechas", {'fields': ('last_login', 'date_joined')}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username', 'email', 'password1', 'password2', 'is_staff', 'is_active')
+        }),
+    )
 
 class PerfilUsuarioAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'apellido', 'documento')
-
-    filter_horizontal = ()
-    list_filter = ()
-    fieldsets = ()
+    list_display = ('usuario', 'nombre', 'apellido', 'documento', 'telefono')
+    search_fields = ('nombre', 'apellido', 'documento', 'telefono')
+    list_filter = ('usuario__is_active',)
 
 class CargoAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'area')
+    list_display = ('nombre',)
+    search_fields = ('nombre',)
 
-    filter_horizontal = ()
-    list_filter = ()
-    fieldsets = ()
-
-class AreaAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'descripcion', 'empresa')
-
-    filter_horizontal = ()
-    list_filter = ()
-    fieldsets = ()
-
-class EmpresaAdmin(admin.ModelAdmin):
-    list_display = ['nombre', 'razon_social', 'nit', 'telefono', 'correo', 'fecha_inicio_actividad', 'usuario']
-    
-    filter_horizontal = ()
-    list_filter = ()
-    fieldsets = ()          
-
-admin.site.register(Usuario, UsuarioAdmin)  
+admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(PerfilUsuario, PerfilUsuarioAdmin)
 admin.site.register(Cargo, CargoAdmin)
-admin.site.register(Area, AreaAdmin)
-admin.site.register(Empresa, EmpresaAdmin) 
