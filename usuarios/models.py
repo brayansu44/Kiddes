@@ -50,7 +50,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     objects = MyAccountManager()
 
     def __str__(self):
-        return self.email
+        return self.username
 
 class PerfilUsuario(models.Model):
     usuario                             = models.OneToOneField(Usuario, on_delete=models.CASCADE)
@@ -70,3 +70,20 @@ class Cargo(models.Model):
 
     def __str__(self):
         return self.nombre
+
+class ConfiguracionUsuario(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+
+    # Opciones de personalización
+    tema = models.CharField(max_length=20, choices=[
+        ('light', 'Light'),
+        ('dark', 'Dark'),
+        ('semidark', 'Semi Dark'),
+        ('minimal', 'Minimal'),
+    ], default='semidark')
+
+    color_encabezado = models.CharField(max_length=20, default='headercolor1')
+    color_sidebar = models.CharField(max_length=20, default='sidebarcolor1')
+
+    def __str__(self):
+        return f"Configuración de {self.usuario.username}"

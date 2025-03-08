@@ -13,7 +13,7 @@ class CustomPasswordInput(forms.PasswordInput):
 class LoginForm(forms.ModelForm):
     class Meta:
         model = Usuario
-        fields = ['username', 'password']
+        fields = ['username', 'password', 'email']
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
@@ -38,8 +38,8 @@ class LoginForm(forms.ModelForm):
 
         # form password recovery
         self.fields['email']= forms.CharField(widget=forms.EmailInput(attrs={
-            'placeholder': "Correo electrónico",
-
+            'placeholder': "Tu correo electrónico",
+            'class': "form-control-lg"
         }))
 
 
