@@ -48,11 +48,17 @@ class Producto(models.Model):
     Descripcion     = models.CharField(max_length=100)
     Qty_Disponible  = models.IntegerField()
     StockID         = models.ForeignKey(Stock, on_delete=models.CASCADE)
-    Estado          = models.CharField(max_length=100)
+    ESTADO_CHOICES = [
+        ('Disponible', 'Disponible'),
+        ('No disponible', 'No disponible'),
+    ]
     Diseno          = models.CharField(max_length=100)
     Precio_venta    = models.FloatField()
     Descuento       = models.FloatField()
     Garantia        = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.referencia} - {self.color} - {self.talla}"
 
 
 

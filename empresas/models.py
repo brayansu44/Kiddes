@@ -43,27 +43,28 @@ class DiasFuncionamiento(models.Model):
     def __str__(self):
         return f"{self.get_dia_display()} - {self.local.nombre}"
 
-class Producto(models.Model):
-    ESTADO_CHOICES = [
-        ('Disponible', 'Disponible'),
-        ('No disponible', 'No disponible'),
-    ]
+# class Producto(models.Model):
+#     ESTADO_CHOICES = [
+#         ('Disponible', 'Disponible'),
+#         ('No disponible', 'No disponible'),
+#     ]
 
-    referencia = models.CharField(max_length=100, unique=True)
-    descripcion = models.TextField()
-    color = models.CharField(max_length=50)
-    talla = models.CharField(max_length=10)
-    estado = models.CharField(max_length=50, choices=ESTADO_CHOICES, default='Disponible')
+#     referencia = models.CharField(max_length=100, unique=True)
+#     descripcion = models.TextField()
+#     color = models.CharField(max_length=50)
+#     talla = models.CharField(max_length=10)
+#     estado = models.CharField(max_length=50, choices=ESTADO_CHOICES, default='Disponible')
 
-    def __str__(self):
-        return f"{self.referencia} - {self.color} - {self.talla}"
+#     def __str__(self):
+#         return f"{self.referencia} - {self.color} - {self.talla}"
 
 class InventarioLocal(models.Model):
     local = models.ForeignKey(Local, on_delete=models.CASCADE, related_name="inventario")
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name="stock_locales")
+    producto = models.ForeignKey("Producto.Producto", on_delete=models.CASCADE, related_name="stock_locales")
     cantidad_disponible = models.IntegerField()
     fecha_actualizacion = models.DateField(auto_now=True)
     stock_minimo = models.IntegerField()
 
     def __str__(self):
-        return f"{self.local.nombre} - {self.producto.referencia} - {self.cantidad_disponible} uds"    
+        return f"{self.local.nombre} - {self.cantidad_disponible} uds"    
+            #                        - {self.producto.referencia}
