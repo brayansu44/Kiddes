@@ -1,17 +1,11 @@
 from django.contrib import admin
-from .models import Ingresos_Producto, Local, Salidas_Producto, Unidad_Medida, Tipo_insumo, Insumo, Ingresos_insumo, Uso_Insumo
+from .models import Ingresos_Producto, Salidas_Producto, Unidad_Medida, Tipo_insumo, Insumo, Ingresos_insumo, Uso_Insumo
 # Register your models here.
 
 #@admin.register(Ingresos_ProductoAdmin)
 class Ingresos_ProductoAdmin(admin.ModelAdmin):
     list_display = ('Fecha', 'ProductoID', 'ProveedorID', 'Cantidad', 'UserResponsable', 'Estado')
     search_fields = ('ProductoID', 'UserResponsable')
-    list_filter = ()
-
-    #@admin.register(LocalAdmin)
-class LocalAdmin(admin.ModelAdmin):
-    list_display = ('Nombre', 'Horario', 'Telefono', 'Direccion')
-    search_fields = ()
     list_filter = ()
 
     #@admin.register(Salidas_ProductoAdmin)
@@ -51,7 +45,6 @@ class Uso_InsumoAdmin(admin.ModelAdmin):
     list_filter = ()
 
 admin.site.register(Ingresos_Producto, Ingresos_ProductoAdmin)  
-admin.site.register(Local, LocalAdmin)
 admin.site.register(Salidas_Producto, Salidas_ProductoAdmin)
 admin.site.register(Unidad_Medida, Unidad_MedidaAdmin)
 admin.site.register(Tipo_insumo, Tipo_insumoAdmin)

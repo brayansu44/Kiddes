@@ -1,12 +1,6 @@
 from django.contrib import admin
 from .models import Proveedor, Compra, DetalleCompra, GastosOperativos
 
-@admin.register(Proveedor)
-class ProveedorAdmin(admin.ModelAdmin):
-    list_display = ("nombre", "contacto", "tipo_proveedor", "ciudad")
-    search_fields = ("nombre", "contacto", "ciudad")
-    list_filter = ("tipo_proveedor",)
-
 @admin.register(Compra)
 class CompraAdmin(admin.ModelAdmin):
     list_display = ("id", "fecha_compra", "proveedor", "total_compra", "responsable")

@@ -1,5 +1,5 @@
 from django.db import models
-from usuarios.models import PerfilUsuario
+from Producto.models import Producto
 
 class Empresa(models.Model):
     nombre                  = models.CharField(max_length=100, unique=True)
@@ -22,6 +22,12 @@ class Area(models.Model):
 class Local(models.Model):
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name="locales")
     nombre = models.CharField(max_length=100)
+    Telefono  = models.IntegerField(unique=True)
+    Direccion = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = 'Local'
+        verbose_name_plural = 'Locales'
 
     def __str__(self):
         return f"{self.nombre} - {self.empresa.nombre}"
@@ -59,12 +65,11 @@ class DiasFuncionamiento(models.Model):
 #         return f"{self.referencia} - {self.color} - {self.talla}"
 
 class InventarioLocal(models.Model):
-    local = models.ForeignKey(Local, on_delete=models.CASCADE, related_name="inventario")
-    producto = models.ForeignKey("Producto.Producto", on_delete=models.CASCADE, related_name="stock_locales")
-    cantidad_disponible = models.IntegerField()
-    fecha_actualizacion = models.DateField(auto_now=True)
-    stock_minimo = models.IntegerField()
+    LocalID = models.ForeignKey(Local, on_delete=models.CASCADE, related_name="inventario")
+    ProductoID = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name="stock_locales")
+    StockID = models.IntegerField()
+    Fecha_Actualizada = models.DateField(auto_now=True)
+    Qty_Minimo = models.IntegerField()
 
     def __str__(self):
-        return f"{self.local.nombre} - {self.cantidad_disponible} uds"    
-            #                        - {self.producto.referencia}
+        return f"{self.local.nombre} - {self.StockID} uds - {self.ProductoID.Referencia}"
