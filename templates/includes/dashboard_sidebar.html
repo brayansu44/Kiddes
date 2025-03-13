@@ -27,11 +27,19 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="#" class="has-arrow">
                 <div class="parent-icon"><i class='bx bx-cookie'></i>
                 </div>
                 <div class="menu-title">Telas</div>
             </a>
+            <ul>
+                <li> <a href="{% url 'telas' %}"><i class="bx bx-right-arrow-alt"></i>Telas</a> </li>
+                <li> <a href="{% url 'rollos_tela' %}"><i class="bx bx-right-arrow-alt"></i>Rollos de tela</a> </li>
+                <li> <a href="{% url 'ordenes_produccion' %}"><i class="bx bx-right-arrow-alt"></i>Órdenes de produccion</a> </li>
+                <li> <a href="{% url 'cortes_tela' %}"><i class="bx bx-right-arrow-alt"></i>Cortes de tela</a> </li>
+                <li> <a href="{% url 'tallas_corte' %}"><i class="bx bx-right-arrow-alt"></i>Tallas de corte</a> </li>
+                <li> <a href="{% url 'componentes_corte' %}"><i class="bx bx-right-arrow-alt"></i>Piezas de corte</a> </li>
+            </ul>
         </li>
         <li>
             <a href="#">

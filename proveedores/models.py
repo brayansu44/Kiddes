@@ -11,7 +11,7 @@ class Proveedor(models.Model):
         ('PAS','PAS'),
     )
     Tipo_documento          = models.CharField(max_length=50, choices=Tipo_documentos, default='NIT')
-    Idientificacion         = models.IntegerField(unique=True, null=False, blank=False)
+    Identificacion          = models.IntegerField(unique=True, null=False, blank=False)
     Telefono                = models.IntegerField()
     Correo                  = models.EmailField(max_length=100, unique=True, null=False, blank=False)
     Ciudad                  = models.CharField(max_length=100)
@@ -20,4 +20,7 @@ class Proveedor(models.Model):
     
     class Meta:
         verbose_name='Proveedor'
-        verbose_name_plural='Proveedor'
+        verbose_name_plural='Proveedores'
+
+    def __str__(self):
+        return f"{self.Razon_Social} ({self.Tipo_documento} {self.Identificacion})"    

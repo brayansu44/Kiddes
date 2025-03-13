@@ -26,6 +26,11 @@
 	<link rel="stylesheet" href="{% static 'css/dark-theme.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/semi-dark.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/header-colors.css' %}" />
+	<!-- Data Table CSS -->
+	<link href="{% static 'plugins/datatable/css/dataTables.bootstrap5.min.css' %}" rel="stylesheet" />
+	<!-- my styles -->
+	<link href="{% static 'css/style.css' %}" rel="stylesheet">
+
 	<title>Kiddes</title>
 </head>
 
@@ -54,10 +59,10 @@
 	</div>
 	<!--end wrapper-->
 
+	<script src="{% static 'js/jquery.min.js' %}"></script>
 	<!-- Bootstrap JS -->
 	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 	<!--plugins-->
-	<script src="{% static 'js/jquery.min.js' %}"></script>
 	<script src="{% static 'plugins/simplebar/js/simplebar.min.js' %}"></script>
 	<script src="{% static 'plugins/metismenu/js/metisMenu.min.js' %}"></script>
 	<script src="{% static 'plugins/perfect-scrollbar/js/perfect-scrollbar.js' %}"></script>
@@ -68,14 +73,20 @@
 	<script src="{% static 'plugins/sparkline-charts/jquery.sparkline.min.js' %}"></script>
 	<script src="{% static 'plugins/jquery-knob/excanvas.js' %}"></script>
 	<script src="{% static 'plugins/jquery-knob/jquery.knob.js' %}"></script>
-		<script>
-			$(function () {
-				$(".knob").knob();
-			});
-		</script>
+	<!-- Data table JS  -->
+	<script src="{% static 'plugins/datatable/js/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'plugins/datatable/js/dataTables.bootstrap5.min.js' %}"></script>
+	<script src="{% static 'js/data_table.js' %}"></script>
+
+	<script>
+		$(function () {
+			$(".knob").knob();
+		});
+	</script>
 	<script src="{% static 'js/index.js' %}"></script>
 	<!--app JS-->
 	<script src="{% static 'js/app.js' %}"></script>
+
 </body>
 
 </html>
