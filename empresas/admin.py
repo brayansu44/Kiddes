@@ -18,7 +18,7 @@ class AreaAdmin(admin.ModelAdmin):
 
 @admin.register(Local)
 class LocalAdmin(admin.ModelAdmin):
-    list_display = ("nombre", "empresa", "Telefono", "Direccion")
+    list_display = ("nombre", "empresa", "telefono", "direccion")
     search_fields = ("nombre", "empresa__nombre")
     list_filter = ("empresa",)
 
@@ -29,6 +29,6 @@ class DiasFuncionamientoAdmin(admin.ModelAdmin):
 
 @admin.register(InventarioLocal)
 class InventarioLocalAdmin(admin.ModelAdmin):
-    list_display = ("LocalID", "ProductoID", "StockID", "Fecha_Actualizada", "Qty_Minimo")
-    search_fields = ("LocalID__nombre", "ProductoID__Referencia")
-    list_filter = ("LocalID", "ProductoID")
+    list_display = ("local", "producto", "cantidad_disponible", "fecha_actualizada", "qty_minimo")
+    search_fields = ("local__nombre", "producto__Referencia")
+    list_filter = ("local", "producto")
