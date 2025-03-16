@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from empresas.models import Area
 
 # Create your models here.
 class MyAccountManager(BaseUserManager):
@@ -51,6 +52,13 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+    
+class Cargo(models.Model):
+    nombre  = models.CharField(max_length=50, unique=True)
+    area    = models.ForeignKey(Area, on_delete=models.CASCADE, related_name="Area_relacionada")
+
+    def __str__(self):
+        return self.nombre
 
 class PerfilUsuario(models.Model):
     usuario                             = models.OneToOneField(Usuario, on_delete=models.CASCADE)
@@ -58,6 +66,7 @@ class PerfilUsuario(models.Model):
     apellido                            = models.CharField(max_length=50)
     documento                           = models.IntegerField(unique=True)
     telefono                            = models.IntegerField(unique=True)
+    cargo                               = models.ForeignKey(Cargo, on_delete=models.CASCADE, related_name="Cargo")
 
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
@@ -65,11 +74,7 @@ class PerfilUsuario(models.Model):
     def full_name(self):
         return f'{self.nombre} {self.apellido}'
     
-class Cargo(models.Model):
-    nombre  = models.CharField(max_length=50, unique=True)
 
-    def __str__(self):
-        return self.nombre
 
 class ConfiguracionUsuario(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)

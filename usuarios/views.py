@@ -3,7 +3,6 @@ from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from .models import Usuario, ConfiguracionUsuario
 from .forms import LoginForm
-
 # Verification email
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string

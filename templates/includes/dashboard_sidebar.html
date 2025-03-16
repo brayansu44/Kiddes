@@ -2,14 +2,22 @@
 <!--sidebar wrapper -->
 <div class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
-        <div>
-            <img src="{% static 'images/logo.png' %}" class="logo-icon" alt="logo icon">
-        </div>
-        <div>
-            <h4 class="logo-text">Kiddes</h4>
-        </div>
-        <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
-        </div>
+        {% if empresa_activa %}
+            <div>
+                <img src="{{ empresa_activa.logo.url }}" class="logo-icon" alt="logo icon">
+            </div>
+            <div>
+                <h4 class="logo-text">{{ empresa_activa.razon_social }}</h4>
+            </div>
+            <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+            </div>
+        {% else %}
+            <div>
+                <h4 class="logo-text">Administrador</h4>
+            </div>
+            <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+            </div>
+        {% endif %}
     </div>
     <!--navigation-->
     <ul class="metismenu" id="menu">

@@ -21,13 +21,13 @@ class UsuarioAdmin(UserAdmin):
     )
 
 class PerfilUsuarioAdmin(admin.ModelAdmin):
-    list_display = ('usuario', 'nombre', 'apellido', 'documento', 'telefono')
-    search_fields = ('nombre', 'apellido', 'documento', 'telefono')
+    list_display = ('usuario', 'nombre', 'apellido', 'documento', 'telefono', 'cargo')
+    search_fields = ('nombre', 'apellido', 'documento', 'telefono', 'cargo')
     list_filter = ('usuario__is_active',)
 
 class CargoAdmin(admin.ModelAdmin):
-    list_display = ('nombre',)
-    search_fields = ('nombre',)
+    list_display = ('nombre', 'area')
+    search_fields = ('nombre', 'area')
 
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(PerfilUsuario, PerfilUsuarioAdmin)

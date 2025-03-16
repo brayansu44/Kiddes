@@ -23,12 +23,12 @@
                         <div class="dropdown-menu dropdown-menu-end">
                             {% if empresas %}
                                 <div class="row row-cols-3 g-3 p-3">
-                                    {% for Empresa in empresas %}
+                                    {% for empresa in empresas %}
                                         <div class="col text-center">
                                             <div class="app-box mx-auto">
-                                                <img src="{{ Empresa.logo.url }}" alt="{{ Empresa.razon_social }}" class="img-fluid">
+                                                <a href="{% url 'home_with_empresa' empresa.id %}"><img src="{{ empresa.logo.url }}" alt="{{ empresa.razon_social }}" class="img-fluid"></a>
                                             </div>
-                                            <div class="app-title" >{{Empresa.razon_social}}</div>
+                                            <div class="app-title" >{{empresa.razon_social}}</div>
                                         </div>
                                     {% endfor %}
                                 </div>
