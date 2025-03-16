@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Categoria, Diseno, Genero, Color, Producto, Talla
+from .models import Categoria, Diseno, Genero, Color, Producto, Talla, ProductoVariante
 
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
@@ -10,7 +10,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 
 @admin.register(Diseno)
 class DisenoAdmin(admin.ModelAdmin):
-    list_display = ("nombre", "imagen_preview")  # Muestra la imagen en la lista
+    list_display = ("nombre", "imagen_preview")
 
     def imagen_preview(self, obj):
         if obj.imagen:
@@ -40,18 +40,22 @@ class TallaAdmin(admin.ModelAdmin):
     search_fields = ('nombre',)
     ordering = ('nombre',)         
 
+class ProductoVarianteInline(admin.TabularInline):  
+    """ Muestra las variantes dentro del producto, pero sin edición manual """
+    model = ProductoVariante
+    extra = 0
+    readonly_fields = ('producto', 'color', 'talla', 'diseno')
+    can_delete = False  # Evita eliminaciones manuales
+
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ('codigo', 'referencia', 'categoria', 'estado', 'mostrar_tallas', 'mostrar_colores', 'mostrar_disenos', 'precio_venta', 'descuento', 'precio_final', 'fecha_creacion')
+    list_display = ('codigo', 'referencia', 'categoria', 'estado', 'mostrar_tallas', 'mostrar_colores', 'mostrar_disenos', 'fecha_creacion')
     list_filter = ('estado', 'categoria', 'talla', 'genero', 'color')
     search_fields = ('codigo', 'referencia', 'color__nombre', 'categoria__nombre')
     ordering = ('-fecha_creacion',)
-    filter_horizontal = ('diseno', 'color', 'talla')  # Permite seleccionar múltiples opciones en el admin
+    filter_horizontal = ('diseno', 'color', 'talla')  
     readonly_fields = ('fecha_creacion', 'fecha_actualizacion')
-
-    def precio_final(self, obj):
-        return f"${obj.precio_final:.2f}"
-    precio_final.short_description = 'Precio Final'
+    inlines = [ProductoVarianteInline]  # Muestra variantes dentro del producto
 
     def mostrar_tallas(self, obj):
         return ", ".join([talla.nombre for talla in obj.talla.all()])
@@ -74,4 +78,20 @@ class ProductoAdmin(admin.ModelAdmin):
         ])
         return format_html(disenios_html) if disenios_html else "(Sin diseños)"
     mostrar_disenos.short_description = "Diseños"
-    
+
+@admin.register(ProductoVariante)
+class ProductoVarianteAdmin(admin.ModelAdmin):
+    list_display = ('producto', 'color', 'talla', 'diseno')
+    list_filter = ('producto', 'color', 'talla', 'diseno')
+    search_fields = ('producto__referencia', 'color__nombre', 'talla__nombre', 'diseno__nombre')
+    readonly_fields = ('producto', 'color', 'talla', 'diseno')
+
+    def has_add_permission(self, request):  
+        return False  # Evita creación manual
+
+    def has_change_permission(self, request, obj=None):  
+        return False  # Evita edición
+
+    def has_delete_permission(self, request, obj=None):  
+        return False  # Evita eliminación
+

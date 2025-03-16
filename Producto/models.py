@@ -47,14 +47,6 @@ class Producto(models.Model):
         ('Disponible', 'Disponible'),
         ('No disponible', 'No disponible'),
     ]
-
-    TALLA_CHOICES = [
-        ('S', 'S'),
-        ('M', 'M'),
-        ('L', 'L'),
-        ('XL', 'XL'),
-    ]
-
     codigo              = models.CharField(max_length=50, unique=True)
     referencia          = models.CharField(max_length=100)
     diseno              = models.ManyToManyField(Diseno, related_name="productos")
@@ -64,16 +56,23 @@ class Producto(models.Model):
     genero              = models.ForeignKey(Genero, on_delete=models.SET_NULL, null=True, blank=True, related_name="productos")
     descripcion         = models.TextField(blank=True)
     estado              = models.CharField(max_length=50, choices=ESTADO_CHOICES, default='Disponible')
-    precio_venta        = models.DecimalField(max_digits=10, decimal_places=2)
-    descuento           = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
-    garantia_meses      = models.PositiveIntegerField(default=0) 
     fecha_creacion      = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 
-    @property
-    def precio_final(self):
-        return self.precio_venta * (1 - self.descuento / 100)
+    def __str__(self):
+        colores = ", ".join([color.nombre for color in self.color.all()]) if self.color.exists() else "Sin colores"
+        tallas = ", ".join([talla.nombre for talla in self.talla.all()]) if self.talla.exists() else "Sin tallas"
+        return f"{self.codigo} - {self.referencia} (Colores: {colores} | Tallas: {tallas})"
+
+class ProductoVariante(models.Model):
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name="variantes")
+    color    = models.ForeignKey(Color, on_delete=models.CASCADE, related_name="variantes")
+    talla    = models.ForeignKey(Talla, on_delete=models.CASCADE, related_name="variantes")
+    diseno   = models.ForeignKey(Diseno, on_delete=models.CASCADE, null=True, blank=True, related_name="variantes")
+
+    class Meta:
+        unique_together = ('producto', 'color', 'talla', 'diseno')  
 
     def __str__(self):
-        return f"{self.codigo} - {self.referencia} ({self.color}, {self.talla})"
+        return f"{self.producto.referencia} - {self.color.nombre} - {self.talla.nombre} - {self.diseno.nombre if self.diseno else 'Sin diseño'}"
 

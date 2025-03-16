@@ -61,8 +61,8 @@ class CajaCompensacion(models.Model):
 # 📌 Modelo Contrato
 class Contrato(models.Model):
     perfil                = models.ForeignKey(PerfilUsuario, on_delete=models.CASCADE)
-    empresa               = models.ForeignKey(Empresa, on_delete=models.CASCADE)
-    local                 = models.ForeignKey(Local, on_delete=models.SET_NULL, null=True, blank=True, related_name="empleados")
+    empresa               = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name="Empresa_usuario")
+    local                 = models.ForeignKey(Local, on_delete=models.SET_NULL, null=True, blank=True, related_name="Local_relacionado")
     eps                   = models.ForeignKey(EPS, on_delete=models.SET_NULL, null=True, blank=True)
     pension               = models.ForeignKey(Pension, on_delete=models.SET_NULL, null=True, blank=True)
     arl                   = models.ForeignKey(ARL, on_delete=models.SET_NULL, null=True, blank=True)

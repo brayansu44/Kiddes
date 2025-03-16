@@ -34,7 +34,6 @@
                                     <th>Tallas</th>
                                     <th>Colores</th>
                                     <th>Diseño</th>
-                                    <th>Precio</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,17 +59,22 @@
                                             </div>                                            
                                         </td>                                                                                                                    
                                         <td>
-                                            {% for diseno in producto.diseno.all %}
-                                                {% if diseno.imagen %}
-                                                    <a href="{{ diseno.imagen.url }}" target="_blank">
-                                                        <img src="{{ diseno.imagen.url }}" alt="{{ diseno.nombre }}" width="40" height="40" style="border-radius: 5px; margin: 2px;">
-                                                    </a>
+                                            {% with imagenes_diseno=producto.diseno.all %}
+                                                {% if imagenes_diseno %}
+                                                    {% for diseno in imagenes_diseno %}
+                                                        {% if diseno.imagen %}
+                                                            <a href="{{ diseno.imagen.url }}" target="_blank">
+                                                                <img src="{{ diseno.imagen.url }}" alt="{{ diseno.nombre }}" width="40" height="40" style="border-radius: 5px; margin: 2px;">
+                                                            </a>
+                                                        {% else %}
+                                                            {{ diseno.nombre }}{% if not forloop.last %}, {% endif %}
+                                                        {% endif %}
+                                                    {% endfor %}
                                                 {% else %}
-                                                    {{ diseno.nombre }}{% if not forloop.last %}, {% endif %}
+                                                    Sin diseños
                                                 {% endif %}
-                                            {% endfor %}
-                                        </td>
-                                        <td>${{ producto.precio_venta }}</td>
+                                            {% endwith %}
+                                        </td>                                                                                                                                                                                  
                                     </tr>
                                     {% endfor %}
                                 {% else %}
@@ -88,12 +92,11 @@
                                         <th>Código</th>
                                         <th>Referencia</th>
                                         <th>Categoría</th>
-                                        <th>Geneto</th>
+                                        <th>Genero</th>
                                         <th>Estado</th>
                                         <th>Tallas</th>
                                         <th>Colores</th>
                                         <th>Diseño</th>
-                                        <th>Precio</th>
                                     </tr>
                                 </tr>
                             </tfoot>

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <div class="page-content">
+            <h6 class="mb-0 text-uppercase">Inventario Inicial</h6>
+            <hr />
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Fecha</th>
+                            <td>{{ fecha|default:"No disponible" }}</td>
+                        </tr>
+                        <tr>
+                            <th>Referencia</th>
+                            <td>{{ producto.referencia }}</td>
+                        </tr>
+                    </table>
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Talla</th>
+                                <th>Cantidad</th>
+                                <th>Salidas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in inventario %}
+                            <tr>
+                                <td>{{ item.variante__talla__nombre }}</td>
+                                <td>{{ item.stock_total }}</td>
+                                <td>{{ item.salidas_total }}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <th>Total</th>
+                                <th>{{ total_stock }}</th>
+                                <th>{{ total_salidas }}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
