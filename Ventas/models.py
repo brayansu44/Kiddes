@@ -1,7 +1,11 @@
 from django.db import models
 
 from Cuentas.models import Cliente, FacturaVenta
+<<<<<<< HEAD
 from empresas.models import Local
+=======
+from locales.models import Local
+>>>>>>> 0143c21 (nuevos cabios en el modulo de bodega)
 
 # Create your models here.
 

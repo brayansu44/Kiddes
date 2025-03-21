@@ -30,4 +30,8 @@ urlpatterns = [
     path('telas/', include('telas.urls')),
     path('productos/', include('Producto.urls')),
     path('empresas/', include('empresas.urls')),
+<<<<<<< HEAD
+=======
+    path('locales/', include('locales.urls')),
+>>>>>>> 0143c21 (nuevos cabios en el modulo de bodega)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

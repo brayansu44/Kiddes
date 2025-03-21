@@ -95,3 +95,10 @@
     display: block;
 }
 
+<<<<<<< HEAD
+=======
+.hover-effect:hover {
+    background-color: #f1f1f1;  /* Cambia el color de fondo al pasar el mouse */
+    cursor: pointer;            /* Cambia el cursor para mostrar que es clickeable */
+}
+>>>>>>> 0143c21 (nuevos cabios en el modulo de bodega)

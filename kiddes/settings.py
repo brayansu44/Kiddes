@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+<<<<<<< HEAD
+=======
+import os
+>>>>>>> 0143c21 (nuevos cabios en el modulo de bodega)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,7 +52,14 @@ INSTALLED_APPS = [
     'Movimientos',
     'gastos',
     'empresas',
+<<<<<<< HEAD
     'proveedores'
+=======
+    'proveedores',
+    'locales',
+    "celery",
+    "django_celery_beat",
+>>>>>>> 0143c21 (nuevos cabios en el modulo de bodega)
 ]
 
 MIDDLEWARE = [
@@ -172,3 +183,10 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'brayansayrez400@gmail.com'
 EMAIL_HOST_PASSWORD = 'xhxptpsibyzmxjsr'
 EMAIL_USE_TLS = True
+<<<<<<< HEAD
+=======
+
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+>>>>>>> 0143c21 (nuevos cabios en el modulo de bodega)

@@ -1,26 +1,11 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from datetime import datetime, timedelta
+
 from Producto.models import ProductoVariante
+from empresas.models import Empresa
 
-class Empresa(models.Model):
-    razon_social            = models.CharField(max_length=100)
-    nit                     = models.CharField(max_length=20, unique=True)
-    telefono                = models.CharField(max_length=20, unique=True)
-    correo                  = models.EmailField(max_length=100, unique=True)
-    logo                    = models.ImageField(upload_to='empresas', blank=True)
-
-    def __str__(self):
-        return self.razon_social
-
-class Area(models.Model):
-    nombre      = models.CharField(max_length=100, unique=True, null=False, blank=False)
-    descripcion = models.CharField(max_length=100)
-    empresa     = models.ForeignKey(Empresa, on_delete=models.SET_NULL, null=True, blank=True)
-
-    def __str__(self):
-        return self.nombre
-<<<<<<< HEAD
-    
+# Create your models here.
 class DiasFuncionamiento(models.Model):
     DIAS_CHOICES = [
         (1, "Lunes"),
@@ -74,8 +59,32 @@ class InventarioLocal(models.Model):
 
     def __str__(self):
         return f"{self.local.nombre} - {self.variante} - Stock: {self.stock_actual} uds"
-=======
->>>>>>> 0143c21 (nuevos cabios en el modulo de bodega)
+    
+class InventarioSemanal(models.Model):
+    local       = models.ForeignKey(Local, on_delete=models.CASCADE)
+    variante    = models.ForeignKey(ProductoVariante, on_delete=models.CASCADE)
+    semana      = models.DateField()
+    anio        = models.IntegerField(default=datetime.now().year)
+    entradas    = models.PositiveIntegerField(default=0)
+    salidas     = models.PositiveIntegerField(default=0)
+    stock_final = models.PositiveIntegerField(default=0)
 
+    class Meta:
+        unique_together = ('local', 'variante', 'semana', 'anio')
 
+    def __str__(self):
+        return f"{self.local.nombre} - {self.variante.producto.referencia} - Semana {self.semana}/{self.anio}"
 
+class VentaSemanal(models.Model):
+    local       = models.ForeignKey(Local, on_delete=models.CASCADE)
+    variante    = models.ForeignKey(ProductoVariante, on_delete=models.CASCADE)
+    semana      = models.DateField()
+    anio        = models.IntegerField(default=datetime.now().year)
+    fecha       = models.DateField(auto_now_add=True)
+    cantidad_vendida = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        unique_together = ('local', 'variante', 'semana', 'anio')
+
+    def __str__(self):
+        return f"Venta {self.local.nombre} - {self.variante.producto.referencia} - {self.fecha}"

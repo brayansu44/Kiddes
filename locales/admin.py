@@ -1,29 +1,8 @@
 from django.contrib import admin
-from django.utils.html import format_html
-<<<<<<< HEAD
-from .models import Empresa, Area, DiasFuncionamiento, Local, InventarioLocal
-=======
-from .models import Empresa, Area
->>>>>>> 0143c21 (nuevos cabios en el modulo de bodega)
 
-@admin.register(Empresa)
-class EmpresaAdmin(admin.ModelAdmin):
-    list_display = ("razon_social", "nit", "telefono", "correo", "mostrar_logo")
-    search_fields = ("razon_social", "nit", "correo")
-    
-    def mostrar_logo(self, obj):
-        if obj.logo:
-            return format_html('<img src="{}" width="50" height="50" style="border-radius:5px;" />', obj.logo.url)
-        return "(Sin logo)"
-    
-    mostrar_logo.short_description = "Logo"
+from .models import *
 
-@admin.register(Area)
-class AreaAdmin(admin.ModelAdmin):
-    list_display = ("nombre", "empresa", "descripcion")
-    search_fields = ("nombre", "empresa__razon_social")
-
-<<<<<<< HEAD
+# Register your models here.
 @admin.register(DiasFuncionamiento)
 class DiasFuncionamientoAdmin(admin.ModelAdmin):
     list_display = ("dia", "get_dia_display")
@@ -60,5 +39,13 @@ class InventarioLocalAdmin(admin.ModelAdmin):
         }),
     )
 
-=======
->>>>>>> 0143c21 (nuevos cabios en el modulo de bodega)
+
+@admin.register(InventarioSemanal)
+class InventarioSemanalAdmin(admin.ModelAdmin):
+    list_display = ('local', 'variante', 'semana', 'entradas', 'salidas', 'stock_final')
+    list_filter = ('local', 'semana')
+    search_fields = ('local__nombre', 'variante__producto__referencia')
+    ordering = ('-semana', 'local')
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('local', 'variante', 'variante__producto')

@@ -1,9 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 from django.db.models import Sum, Max, Count
 
 from .models import Empresa, Local, InventarioLocal
 from Producto.models import Producto, ProductoVariante
+=======
+from django.db.models import Count
+
+from .models import Empresa
+>>>>>>> 0143c21 (nuevos cabios en el modulo de bodega)
 
 @login_required(login_url = 'login')
 def empresas(request):
@@ -13,6 +19,7 @@ def empresas(request):
         'empresas': empresas,
     }
 
+<<<<<<< HEAD
     return render(request, 'empresas/empresas.html', context)
 
 @login_required(login_url = 'login')
@@ -51,3 +58,6 @@ def resumen_inventario_producto(request, producto_id):
         'total_salidas': total_salidas
     }
     return render(request, 'empresas/resumen-inventario.html', context)
+=======
+    return render(request, 'empresas/empresas.html', context)
+>>>>>>> 0143c21 (nuevos cabios en el modulo de bodega)

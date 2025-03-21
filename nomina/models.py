@@ -1,6 +1,11 @@
 from django.db import models
 from usuarios.models import PerfilUsuario
+<<<<<<< HEAD
 from empresas.models import Empresa, Local
+=======
+from empresas.models import Empresa
+from locales.models import Local
+>>>>>>> 0143c21 (nuevos cabios en el modulo de bodega)
 
 # 📌 Modelo EPS
 class EPS(models.Model):
